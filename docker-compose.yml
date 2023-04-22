@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+    dynamodb-local:
+        container_name: dynamodb-local
+        hostname: dynamodb-local
+        image: "amazon/dynamodb-local:latest"
+        command: "-jar DynamoDBLocal.jar -sharedDb -dbPath ./data"
+        volumes:
+            - "./docker/dynamodb:/home/dynamodblocal/data"
+        ports:
+            - "8000:8000"
+        expose:
+            - "8000"
+        working_dir: /home/dynamodblocal
+
+    api: 
+        container_name: api
+        hostname: api
+        build: "./api"
+        ports:
+            - "8080:8080"
+        expose:
+            - "8080"
